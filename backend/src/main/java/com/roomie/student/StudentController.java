@@ -28,8 +28,8 @@ public class StudentController {
     }
 
     @GetMapping
-	public List<Student> getUsers() {
-		return studentService.getStudents();
+	public List<StudentDTO> getStudents() {
+        return studentService.getStudents().stream().map(StudentDTO::new).toList();
 	}
 
     @PostMapping
@@ -52,7 +52,6 @@ public class StudentController {
         return new QuestionnaireDTO(studentService.getStudentQuestionnaire(studentId));
     }
     
-
     @PostMapping(path="{studentId}/questionnaire")
     public void submitQuestionnaire(@PathVariable("studentId") Long studentId, @RequestBody Questionnaire questionnaire){
         studentService.submitQuestionnaire(studentId, questionnaire);

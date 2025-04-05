@@ -2,6 +2,7 @@ package com.roomie.student;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 import com.roomie.questionnaire.Questionnaire;
 
@@ -13,7 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table
@@ -23,31 +23,32 @@ public class Student {
     private Long id;
     private String name;
     
-    @Transient
-    private Integer age;
     private LocalDate dob;
     private String email;
     private String password;
     private String university;
+    private List<String> tags;
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Questionnaire questionnaire;
 
     public Student(){}
 
-    public Student(Long id, String name, LocalDate dob, String email, String password, String university){
+    public Student(Long id, String name, LocalDate dob, String email, String password, String university, List<String> tags){
         this.id = id;
         this.name = name;
         this.dob = dob;
         this.email = email;
         this.university = university;
+        this.tags = tags;
     }
 
-    public Student(String name, LocalDate dob, String email, String password, String university){
+    public Student(String name, LocalDate dob, String email, String password, String university, List<String> tags){
         this.name = name;
         this.dob = dob;
         this.email = email;
         this.university = university;
+        this.tags = tags;
     }
 
     public Long getId() {
@@ -76,10 +77,6 @@ public class Student {
 
     public Integer getAge(){
         return Period.between(this.dob, LocalDate.now()).getYears();
-    }
-
-    public void setAge(Integer age){
-        this.age = age;
     }
 
     public String getEmail() {
@@ -114,15 +111,24 @@ public class Student {
         this.questionnaire = questionnaire;
     }
 
+    public List<String> getTags(){
+        return tags;
+    }
+
+    public void setTags(List<String> tags){
+        this.tags = tags;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
+        return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dob=" + dob +
-                ", age=" + age +
+                ", age=" + getAge() +
                 ", email='" + email + '\'' +
                 ", university='" + university + '\'' +
+                ", tags=" + tags +
                 '}';
     }
 }
