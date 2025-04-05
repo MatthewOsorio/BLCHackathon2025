@@ -42,3 +42,13 @@
     ```
 
     Then go to <a href= "http://localhost:8080">this link</a>
+
+### API Endpoints
+
+| Method | Endpoint                           | Description                                  |
+|--------|------------------------------------|----------------------------------------------|
+| GET    | `/student`                         | Retrieve all students (DTO format)           |
+| GET    | `/student/{id}/questionnaire`      | Retrieve a student's questionnaire           |
+| POST   | `/student`                         | Create a new student                         |
+| POST   | `/student/{id}/questionnaire`      | Submit a new questionnaire                   |
+| DELETE | `/student/{id}`                    | Delete a student by ID  
