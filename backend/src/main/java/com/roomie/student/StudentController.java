@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.roomie.questionnaire.Questionnaire;
+import com.roomie.questionnaire.QuestionnaireDTO;
+
 @RestController
 @RequestMapping(path = "api/v1/student")
 public class StudentController {
@@ -42,5 +45,16 @@ public class StudentController {
     @PutMapping(path="{studentId}")
     public void updateStudent(@PathVariable("studentId") Long studentId, @RequestParam(required = false) String name, @RequestParam(required = false) String email){
         studentService.updateStudent(studentId, name, email);
+    }
+
+    @GetMapping(path="{studentId}/questionnaire")
+    public QuestionnaireDTO getStudentQuestionnaire(@PathVariable("studentId") Long studentId){
+        return new QuestionnaireDTO(studentService.getStudentQuestionnaire(studentId));
+    }
+    
+
+    @PostMapping(path="{studentId}/questionnaire")
+    public void submitQuestionnaire(@PathVariable("studentId") Long studentId, @RequestBody Questionnaire questionnaire){
+        studentService.submitQuestionnaire(studentId, questionnaire);
     }
 }

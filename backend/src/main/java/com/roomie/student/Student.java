@@ -3,12 +3,15 @@ package com.roomie.student;
 import java.time.LocalDate;
 import java.time.Period;
 
-import jakarta.persistence.*;
+import com.roomie.questionnaire.Questionnaire;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -16,16 +19,7 @@ import jakarta.persistence.Transient;
 @Table
 public class Student {
     @Id
-    @SequenceGenerator(
-        name = "user_sequence",
-        sequenceName = "user_sequence",
-        allocationSize = 1
-    )
-
-    @GeneratedValue(
-        strategy = GenerationType.SEQUENCE, 
-        generator = "user_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     
@@ -35,6 +29,9 @@ public class Student {
     private String email;
     private String password;
     private String university;
+
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Questionnaire questionnaire;
 
     public Student(){}
 
@@ -107,6 +104,14 @@ public class Student {
 
     public void setUniversity(String university) {
         this.university = university;
+    }
+
+    public Questionnaire getQuestionnaire(){
+        return questionnaire;
+    }
+
+    public void setQuestionare(Questionnaire questionnaire){
+        this.questionnaire = questionnaire;
     }
 
     @Override
