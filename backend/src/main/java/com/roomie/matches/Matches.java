@@ -9,16 +9,23 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table
+@Table(
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"primary_student_id", "secondary_student_id"})
+    }
+)
 public class Matches {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
     private Integer score;
-    
+    private boolean primaryLikes = false;
+    private boolean secondaryLikes = false;
+
     @ManyToOne
     @JoinColumn(name= "primary_student_id")
     private Student primaryStudent;
@@ -70,6 +77,10 @@ public class Matches {
 
     public void setScore(Integer score){
         this.score = score;
+    }
+
+    public boolean isMutual(){
+        return primaryLikes && secondaryLikes;
     }
 
     @Override

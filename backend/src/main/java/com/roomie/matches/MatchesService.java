@@ -1,6 +1,7 @@
 package com.roomie.matches;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,25 @@ public class MatchesService {
             matchesRepository.save(newMatch);
             
         }
+    }
+
+    public void likeStudent(Long studentWhoLikedId, Long otherStudentId){
+        Optional<Student> liker = studentRepository.findById(studentWhoLikedId);
+        if(!liker.isPresent()){
+			throw new IllegalStateException("student with id " + studentWhoLikedId + " does not exists");
+        }
+
+        Student studentWhoLiked = liker.get();
+        Optional<Student> otherStudent = studentRepository.findById(otherStudentId);
+        if(!otherStudent.isPresent()){
+			throw new IllegalStateException("student with id " + otherStudentId + " does not exists");
+        }
+
+        Student likeRecipient = otherStudent.get();
+
+        Match
+
+
     }
 }
 
