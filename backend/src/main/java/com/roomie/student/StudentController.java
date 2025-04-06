@@ -65,4 +65,19 @@ public class StudentController {
         studentService.submitQuestionnaire(studentId, questionnaire);
         studentService.generateMatches(studentId);
     }
+
+    @GetMapping(path="{studentId}/addresses")
+    public void getUserAddresses(@PathVariable("studentId") Long studentId){
+        
+    }
+
+    @PostMapping(path="{studentId}/addresses")
+    public void addAddress(@PathVariable("studentId") Long studentID, @RequestBody String address){
+        studentService.addAddressToStudent(studentID, address);
+    }
+
+    @PostMapping(path="{studentId}/addresses/{address}")
+    public void removeAddress(@PathVariable("studentId") Long studentID, @PathVariable("address") String address){
+        studentService.removeAddressFromStudent(studentID, address);
+    }
 }

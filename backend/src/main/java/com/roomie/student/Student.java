@@ -30,6 +30,7 @@ public class Student {
     private String password;
     private String university;
     private List<String> tags;
+    private List<String> addresses;
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Questionnaire questionnaire;
@@ -114,6 +115,22 @@ public class Student {
 
     public void setQuestionare(Questionnaire questionnaire){
         this.questionnaire = questionnaire;
+    }
+
+    public void setAddresses(List<String> addresses){
+        this.addresses = addresses;
+    }
+
+    public List<String> getAddresses(){
+        return addresses;
+    }
+
+    public void appendAddress(String address){
+        addresses.add(address);
+    }
+
+    public void removeAddress(String address){
+        addresses.remove(address);
     }
 
     public List<String> getTags(){

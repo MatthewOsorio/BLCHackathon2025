@@ -20,12 +20,6 @@ public class MatchesController {
         this.matchesService = matchesService;
     }
 
-    // @GetMapping(path="matches")
-    // public List<Matches> getMatches(){
-    //     System.out.println("TEST TEST TEST ");
-    //     return matchesService.getAllMatches();
-    // }
-
     @PostMapping("{studentId}/like/{targetId}")
     public void likeStudent(@PathVariable("studentId") Long studentId, @PathVariable("targetId") Long targetId){
         matchesService.studentLiked(studentId, targetId);

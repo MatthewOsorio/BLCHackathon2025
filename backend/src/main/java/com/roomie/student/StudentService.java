@@ -110,4 +110,40 @@ public class StudentService {
 	public List<Matches> getMatchesByPrimaryStudentId(Long studentId){
 		return matchesService.getMatchesByPrimaryStudentId(studentId);
 	}
+
+	public List<String> getUserAddresses(Long studentId){
+		Optional<Student> student = studentRepository.findById(studentId);
+		if(!student.isPresent()){
+			throw new IllegalStateException("student with id " + studentId + " does not exist");
+		}
+
+		Student currentStudent  = student.get();
+
+		return currentStudent.getAddresses();
+	}
+
+	public void addAddressToStudent(Long studentId, String address){
+		Optional<Student> student = studentRepository.findById(studentId);
+		if(!student.isPresent()){
+			throw new IllegalStateException("student with id " + studentId + " does not exist");
+		}
+
+		Student currentStudent  = student.get();
+
+		currentStudent.appendAddress(address);
+
+		studentRepository.save(currentStudent);
+	}
+
+	public void removeAddressFromStudent(Long studentId, String address){
+		Optional<Student> student = studentRepository.findById(studentId);
+		if(!student.isPresent()){
+			throw new IllegalStateException("student with id " + studentId + " does not exist");
+		}
+
+		Student currentStudent  = student.get();
+
+		currentStudent.removeAddress(address);
+
+	}
 }
