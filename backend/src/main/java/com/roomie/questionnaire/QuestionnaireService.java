@@ -1,5 +1,7 @@
 package com.roomie.questionnaire;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,7 @@ public class QuestionnaireService {
         return value != null && !value.trim().isEmpty();
     }
 
-    public void savQuestionnaire(Questionnaire questionnaire) {
+    public void saveQuestionnaire(Questionnaire questionnaire) {
         if(!validateQuestionnaire(questionnaire)){
             throw new IllegalStateException("Invalid questionaire responses.");
         }
@@ -36,6 +38,9 @@ public class QuestionnaireService {
 
     public Questionnaire getByStudentId(Long studentId) {
         return questionnaireRepository.findQuestionnaireByStudentId(studentId).orElseThrow(() -> new IllegalStateException("User has not done the questionnaire."));
+    }   
+
+    public List<Questionnaire> getListOfQuestionnaireByStudentIds(List<Long> studentIds){
+        return questionnaireRepository.findByStudentIdIn(studentIds);
     }
-    
 }

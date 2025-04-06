@@ -13,10 +13,8 @@ public class RoomieApplication {
 		System.setProperty("POSTGRES_URL", dotenv.get("POSTGRES_URL"));
         System.setProperty("POSTGRES_USER", dotenv.get("POSTGRES_USER"));
         System.setProperty("POSTGRES_PASSWORD", dotenv.get("POSTGRES_PASSWORD"));
+		System.setProperty("OPENAI_API_KEY", dotenv.get("OPENAI_API_KEY"));
 
 		SpringApplication.run(RoomieApplication.class, args);
 	}
-
 }
-
-

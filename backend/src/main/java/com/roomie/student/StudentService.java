@@ -1,13 +1,16 @@
 package com.roomie.student;
 
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.roomie.matchgenerator.MatchGeneratorService;
+import com.roomie.matches.Matches;
+import com.roomie.matches.MatchesService;
 import com.roomie.questionnaire.Questionnaire;
 import com.roomie.questionnaire.QuestionnaireService;
 
@@ -18,15 +21,29 @@ public class StudentService {
 
 	private final StudentRepository studentRepository;
 	private final QuestionnaireService questionnaireService;
+	private final MatchGeneratorService matchesGeneratorService;
+	private final MatchesService matchesService;
 
 	@Autowired
-	public StudentService(StudentRepository studentRepository, QuestionnaireService questionnaireService){
+	public StudentService(StudentRepository studentRepository, QuestionnaireService questionnaireService, MatchGeneratorService matchesGeneratorService, MatchesService matchesService){
 		this.studentRepository = studentRepository;
 		this.questionnaireService = questionnaireService;
+		this.matchesGeneratorService = matchesGeneratorService;
+		this.matchesService = matchesService;
 	}
 
 	public List<Student> getStudents() {
 		return studentRepository.findAll();
+	}
+
+	public Student getStudent(Long studentId) {
+		Optional<Student> studentOptional  = studentRepository.findById(studentId);
+
+		if (!studentOptional.isPresent()){
+			throw new IllegalStateException("student with id " + studentId + " does not exists");
+		}
+
+		return studentOptional.get();
 	}
 
 	public void addNewStudent(Student student) {
@@ -74,7 +91,23 @@ public class StudentService {
 	public void submitQuestionnaire(Long studentId, Questionnaire questionnaire){
 		Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException("student with id " + studentId + " does not exists"));
 		questionnaire.setStudent(student);
-		questionnaireService.savQuestionnaire(questionnaire);
+		questionnaireService.saveQuestionnaire(questionnaire);
 	}
 
+	public void generateMatches(Long studentId){
+		List<Student> students = studentRepository.findAllExcept(studentId);
+		List<Long> studentIds= students.stream()
+			.map(Student::getId)
+			.collect(Collectors.toList());
+
+		Questionnaire studentQuestionnaire = questionnaireService.getByStudentId(studentId);
+		List<Questionnaire> allQuestionnaires = questionnaireService.getListOfQuestionnaireByStudentIds(studentIds);
+
+		matchesGeneratorService.generateAndSaveMatches(studentQuestionnaire, allQuestionnaires);
+
+	}	
+
+	public List<Matches> getMatchesByPrimaryStudentId(Long studentId){
+		return matchesService.getMatchesByPrimaryStudentId(studentId);
+	}
 }
