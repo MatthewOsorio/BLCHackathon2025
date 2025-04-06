@@ -3,6 +3,7 @@ import janeDoeImage from '../assets/jane.jpg';
 import johnSmith from '../assets/john.jpg';
 import sarahBrown from '../assets/sarah.jpg';
 import './Matches.css';
+import NavBar from '../components/NavBar';
 
 const Matches = () => {
   const [cards, setCards] = useState([
@@ -82,7 +83,7 @@ const Matches = () => {
         onTouchMove={(e) => handleMove(e.touches[0].clientX)}
         onTouchEnd={() => handleEnd(card)}
       >
-
+        
         <div className="card-content">
           <img src={card.image} alt={card.name} className="card-image" />
           <div className="card-info">
@@ -102,22 +103,25 @@ const Matches = () => {
   };
 
   return (
-    <div className="matches-container">
-      {cards.map((card) => renderCard(card))}
+    <div>
+        <NavBar/>
+        <div className="matches-container">
+        {cards.map((card) => renderCard(card))}
 
-      <div className="swipe-buttons">
-        <button
-          onClick={() => cards.length > 0 && handleSwipeLeft(cards[cards.length - 1])}
-          className="swipe-button dislike"
-        >
-          ✕
-        </button>
-        <button
-          onClick={() => cards.length > 0 && handleSwipeRight(cards[cards.length - 1])}
-          className="swipe-button like"
-        >
-          ♥
-        </button>
+        <div className="swipe-buttons">
+          <button
+            onClick={() => cards.length > 0 && handleSwipeLeft(cards[cards.length - 1])}
+            className="swipe-button dislike"
+          >
+            ✕
+          </button>
+          <button
+            onClick={() => cards.length > 0 && handleSwipeRight(cards[cards.length - 1])}
+            className="swipe-button like"
+          >
+            ♥
+          </button>
+        </div>
       </div>
     </div>
   );

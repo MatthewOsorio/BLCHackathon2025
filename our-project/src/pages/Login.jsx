@@ -1,13 +1,16 @@
 import NavBar from "../components/NavBar"
 import { Link } from 'react-router-dom';
+import './Signup.css'
 
 function Login () {
     return (
-        <div className = "loginPage">
+        <div className = "signupPage">
             <NavBar />
-            <div className = "loginBox">
+            <div className = "signupBox">
                 <h2>Login</h2>
-                <input type="email" placeholder= "enter email"/>
+                <div className="email-container">
+                    <input type="email" placeholder= "enter email"/>
+                </div>
                 <input type="password" placeholder=" enter password" />
             </div>
             <button className = "submitBtn">
@@ -18,3 +21,4 @@ function Login () {
 }
 
 export default Login
+
