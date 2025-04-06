@@ -27,7 +27,7 @@ img {
     z-index: 9999;
 }
 
-p {
+.ptags {
     color: rgb(32, 13, 1);
     transform: rotate(6.3deg);
     right: 170px;

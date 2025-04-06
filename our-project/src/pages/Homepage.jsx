@@ -14,7 +14,7 @@ function Homepage() {
             </div>
             <img src={homepageImage} alt="Homepage Image" />
             <div>
-            <p>A fun way to find roommates who are also students</p>
+            <p className ="ptags">A fun way to find roommates who are also students</p>
             </div>
             <button className="signupbtn">
                 <Link to="/signup" className="nav-link">Sign Up</Link>
