@@ -18,7 +18,7 @@ function NavBar() {
                 </div>
                 <div className="navbar-links">
                     <Link to="/" className="nav-link">Home</Link>
-                    <Link to="/login" className="nav-link">Login</Link>
+                    <button onClick={toggleAuthentication}>Login</button>
                 </div>
             </nav>
         );
@@ -26,13 +26,12 @@ function NavBar() {
         navBarContent = (
             <nav className="navBar">
                 <div className="navbar-left">
-                    <Link to="/" className="nav-link">Team Name</Link>
+                    <Link to="/" className="nav-link">Roomify</Link>
                 </div>
                 <div className="navbar-links">
                     <Link to="/matches" className="nav-link">Matches</Link>
                     <Link to="/signup" className="nav-link">Profile</Link>
-                    <button onClick={toggleAuthentication}>Messages</button>
-                    <button onClick={toggleAuthentication}>Notifications</button>
+                    <button>Notifications</button>
                 </div>
             </nav>
         );

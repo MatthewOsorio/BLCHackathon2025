@@ -8,6 +8,8 @@
 }
 
 .listingCards{
+    display: flex;
+
     border: 2px solid black;
     padding: 10px;
     border-radius: 50px;
@@ -25,5 +27,12 @@
 
 .priceHeart{
     display: flex;
-    padding-left: 5pt;
+    padding-left: 50pt;
+    
+}
+
+.heartBtn{
+    transform: scale(0.7);
+    background-color: grey;
+    opacity: 0.8;
 }

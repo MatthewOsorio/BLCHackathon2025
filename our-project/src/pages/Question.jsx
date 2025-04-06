@@ -1,5 +1,6 @@
 import React, { useState } from "react"; 
 import { Link } from "react-router-dom";
+import './Question.css';
 
 function Question () {
     const [questionCounter, setQuestionCounter] = useState(1);
@@ -34,11 +35,11 @@ function Question () {
     let displayQuestion = '';
 
     return (
-        <div className = "questionsContainer">
+        <div>
             {questionCounter === 1 && (
-                <div>
-                    <p>1. What does a "clean" space mean to you, and whats your threshold before something feels messy or unlivable' </p>  
-                    <input 
+                <div className="q1">
+                    <p className = "questions">1. What does a "clean" space mean to you, and whats your threshold before something feels messy or unlivable? </p>  
+                    <input className = "inputs" 
                         type="text"
                         value={q1Input}
                         onChange={handleChange1}
@@ -49,8 +50,8 @@ function Question () {
 
             {questionCounter === 2 && (
                 <div>
-                    <p>2. When you're overwhelmed or stressed, how does that usually show up in your space or behavior at home? </p>  
-                    <input 
+                    <p className = "questions">2. When you're overwhelmed or stressed, how does that usually show up in your space or behavior at home? </p>  
+                    <input className = "inputs" 
                         type="text"
                         value={q2Input}
                         onChange={handleChange2}
@@ -61,8 +62,8 @@ function Question () {
 
             {questionCounter === 3 && (
                 <div>
-                    <p> 3.When you're annoyed about something small a roommate does, how do you usually bring it up-or do you let it slide? </p>
-                        <input 
+                    <p className = "questions"> 3. When you're annoyed about something small a roommate does, how do you usually bring it up-or do you let it slide? </p>
+                        <input  className = "inputs" 
                         type="text"
                         value={q3Input}
                         onChange={handleChange3}
@@ -73,8 +74,8 @@ function Question () {
 
             {questionCounter === 4 && (
                 <div>
-                    <p> 4. What's a past roommate conflict you've had, and how did you handle it? </p>
-                        <input 
+                    <p className = "questions">  4. What's a past roommate conflict you've had, and how did you handle it? </p>
+                        <input  className = "inputs" 
                         type="text"
                         value={q4Input}
                         onChange={handleChange4}
@@ -85,8 +86,8 @@ function Question () {
 
             {questionCounter === 5 && (
                 <div>
-                    <p> 5. What are your non-negotiables in a roommate situation? What's something small that ended up being a big deal for you in the past? </p>
-                        <input 
+                    <p className = "questions"> 5. What are your non-negotiables in a roommate situation? What's something small that ended up being a big deal for you in the past? </p>
+                        <input  className = "inputs" 
                         type="text"
                         value={q5Input}
                         onChange={handleChange5}
@@ -95,13 +96,15 @@ function Question () {
                 </div>
             )}
             
-            {questionCounter < 5 && (
-                <button onClick={increment}>Next Question</button>
-            )}
-            {questionCounter === 5 && (
-                //<button onClick={increment}>Done</button>
-                <Link to = "/userHomepage">Submit</Link>
-            )}
+            <div className = "nextBtn">
+                {questionCounter < 5 && (
+                    <button onClick={increment}>Next Question</button>
+                )}
+                {questionCounter === 5 && (
+                    //<button onClick={increment}>Done</button>
+                    <Link to = "/userHomepage">Submit</Link>
+                )}
+            </div>
 
         </div>
        
