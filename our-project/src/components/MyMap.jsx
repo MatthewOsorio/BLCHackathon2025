@@ -2,6 +2,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useState, useEffect } from "react";
 import { getListing } from '../services/rentcast_api';
+import './MyMap.css';
+
 
 function MyMap() {
   const [listings, setListings] = useState([]); // Ensure it's initialized as an empty array
@@ -31,11 +33,11 @@ function MyMap() {
   const zoomLevel = 13;
 
   return (
-    <div>
+    <div className = "mapCard">
       {loading && <div>Loading...</div>} {/* Loading state indication */}
       {error && <div style={{ color: "red" }}>{error}</div>} {/* Display error message */}
-      
-      <MapContainer className="mapContainer" center={position} zoom={zoomLevel} style={{ height: '500px', width: '100%' }}>
+      <h2>Listings Map</h2>
+      <MapContainer className="mapContainer" center={position} zoom={zoomLevel} style={{ height: '600px', width: '500px' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

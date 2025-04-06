@@ -1,0 +1,8 @@
+.mapContainer{
+    border: 10px;
+}
+.mapCard{
+    background-color: beige;
+    border: 2px solid black;
+    border-radius: 20px;
+}

@@ -1,38 +1,37 @@
-import React, { useState, useEffect, use } from 'react';
-import { getListing } from '../services/rentcast_api';
-
+import React, { useState } from 'react';
+import './ListingCard.css';
 
 function MicroView() {
-  const [listings, setListings] = useState([]); // Ensure it's initialized as an empty array
-  const [loading, setLoading] = useState(false)
+  // Hardcoded listings instead of API call
+  const listings = [
+    { addressLine1: '123 Main St', price: 1200 },
+    { addressLine1: '456 Oak St', price: 1500 },
+    { addressLine1: '789 Pine St', price: 1100 },
+    { addressLine1: '101 Maple St', price: 1300 },
+    { addressLine1: '202 Birch St', price: 1400 },
+  ];
 
-  useEffect(() => {
-    const getCurrentListing = async() =>{
-        setLoading(true)
-        const newListings = await getListing();
-        console.log(newListings)
-        setListings(newListings)
-        setLoading(false)
-    }
+  const [loading, setLoading] = useState(false); // Keep the loading state for any future use
 
-    getCurrentListing();
-  }, []); // Empty dependency array ensures this runs only once
-
-  useEffect(()=>{console.log(listings)}, [listings])
   return (
-    <div>
+    <div className="aptCard">
       <h2>Apartment Listings</h2>
-      {listings && (
-        <ul>
-          {listings.map((listing, index) => (
-            <li key={index}>
-              <h3>{listing.addressLine1}</h3>
-              <p>Price: {listing.price}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-
+      <div className="listingCard">
+        {listings.length > 0 ? (
+          listings.map((listing, index) => (
+            <div className="listingCards" key={index}>
+              <h3>Address: {listing.addressLine1}</h3>
+              <p>Matt liked this!</p>
+              <div className="priceHeart">
+                <p>Price: ${listing.price}</p>
+                <button className="heartBtn">♡</button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div>No listings available</div>
+        )}
+      </div>
       {loading && <div>loading</div>}
     </div>
   );
