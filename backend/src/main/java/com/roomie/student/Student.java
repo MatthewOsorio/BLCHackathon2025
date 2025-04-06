@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
+import com.roomie.matches.Matches;
 import com.roomie.questionnaire.Questionnaire;
 
 import jakarta.persistence.CascadeType;
@@ -12,6 +13,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -21,17 +23,21 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    
     private LocalDate dob;
     private String email;
     private String password;
     private String university;
     private List<String> tags;
+    private List<String> addresses;
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Questionnaire questionnaire;
 
+    @OneToMany(mappedBy = "primaryStudent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Matches> matches;
+    
     public Student(){}
 
     public Student(Long id, String name, LocalDate dob, String email, String password, String university, List<String> tags){
@@ -109,6 +115,22 @@ public class Student {
 
     public void setQuestionare(Questionnaire questionnaire){
         this.questionnaire = questionnaire;
+    }
+
+    public void setAddresses(List<String> addresses){
+        this.addresses = addresses;
+    }
+
+    public List<String> getAddresses(){
+        return addresses;
+    }
+
+    public void appendAddress(String address){
+        addresses.add(address);
+    }
+
+    public void removeAddress(String address){
+        addresses.remove(address);
     }
 
     public List<String> getTags(){
