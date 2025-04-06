@@ -22,9 +22,8 @@ public class Matches {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    private Integer score;
-    private boolean primaryLikes = false;
-    private boolean secondaryLikes = false;
+    private boolean primaryLiked = false;
+    private boolean secondaryLiked = false;
 
     @ManyToOne
     @JoinColumn(name= "primary_student_id")
@@ -36,12 +35,12 @@ public class Matches {
 
     public Matches() {}
 
-    public Matches(Student primaryStudent, Student secondaryStudent, int score) {
+    public Matches(Student primaryStudent, Student secondaryStudent) {
         this.primaryStudent = primaryStudent;
         this.secondaryStudent = secondaryStudent;
     }
 
-    public Matches(Long id, Student primaryStudent, Student secondaryStudent, int score) {
+    public Matches(Long id, Student primaryStudent, Student secondaryStudent) {
         this.id = id;
         this.primaryStudent = primaryStudent;
         this.secondaryStudent = secondaryStudent;
@@ -71,16 +70,24 @@ public class Matches {
         this.secondaryStudent = secondaryStudent;
     }
 
-    public Integer getScore(){
-        return score;
+    public boolean getPrimaryLiked(){
+        return primaryLiked;
     }
 
-    public void setScore(Integer score){
-        this.score = score;
+    public void setPrimaryLiked(boolean primaryLiked){
+        this.primaryLiked = primaryLiked;
+    }
+
+    public boolean getSecondaryLiked(){
+        return secondaryLiked;
+    }
+
+    public void setSecondaryLiked(boolean secondaryLiked){
+        this.secondaryLiked = secondaryLiked;
     }
 
     public boolean isMutual(){
-        return primaryLikes && secondaryLikes;
+        return primaryLiked && secondaryLiked;
     }
 
     @Override
@@ -89,7 +96,6 @@ public class Matches {
                 "id=" + id +
                 ", primaryStudent=" + primaryStudent.getId() +
                 ", secondaryStudent=" + secondaryStudent.getId() +
-                ", score=" + score +
                 '}';
     }
 }

@@ -31,35 +31,52 @@ public class MatchesService {
         for (JsonNode match : matches){
             Long studentMatchId = match.get("studentId").asLong();
             Student secondaryStudent = studentRepository.findById(studentMatchId)
-            .orElseThrow(() -> new IllegalStateException("Student not found with id " + studentMatchId));                int score = match.get("score").asInt();
+            .orElseThrow(() -> new IllegalStateException("Student not found with id " + studentMatchId));
 
-            Matches newMatch = new Matches();
-            newMatch.setPrimaryStudent(primaryStudent);
-            newMatch.setSecondaryStudent(secondaryStudent);
-            newMatch.setScore(score);
-
+            Matches newMatch = getOrCreateMatch(primaryStudent, secondaryStudent);
+            
             matchesRepository.save(newMatch);
             
         }
     }
 
-    public void likeStudent(Long studentWhoLikedId, Long otherStudentId){
+    public void studentLiked(Long studentWhoLikedId, Long otherStudentId){
         Optional<Student> liker = studentRepository.findById(studentWhoLikedId);
         if(!liker.isPresent()){
 			throw new IllegalStateException("student with id " + studentWhoLikedId + " does not exists");
         }
-
         Student studentWhoLiked = liker.get();
+
         Optional<Student> otherStudent = studentRepository.findById(otherStudentId);
         if(!otherStudent.isPresent()){
 			throw new IllegalStateException("student with id " + otherStudentId + " does not exists");
         }
-
         Student likeRecipient = otherStudent.get();
 
-        Match
+        Matches match = getOrCreateMatch(studentWhoLiked, likeRecipient);
 
+        if(match.getPrimaryStudent().getId().equals(studentWhoLiked.getId())){
+                match.setPrimaryLiked(true);
+        }else{
+            match.setSecondaryLiked(true);
+        }
 
+        matchesRepository.save(match);
+
+    }
+
+    private Matches getOrCreateMatch(Student studentA, Student studentB){
+        Student primary = studentA.getId() < studentB.getId() ? studentA : studentB;
+        Student secondary = studentA.getId() < studentB.getId() ? studentB : studentA;
+
+        Optional<Matches> matchesOptinal = matchesRepository.findByPrimaryStudentAndSecondaryStudent(primary, secondary);
+
+        if(matchesOptinal.isPresent()){
+            return matchesOptinal.get();
+        }else{
+            Matches newMatch = new Matches(primary, secondary);
+            return newMatch;
+        }
     }
 }
 

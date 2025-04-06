@@ -68,10 +68,4 @@ public class StudentController {
         studentService.generateMatches(studentId);
     }
 
-    @GetMapping(path="{studentId}/matches")
-    public List<MatchesDTO> getStudentMatches(@PathVariable("studentId") Long studentId){
-        List<Matches> matchesList = matchesRepository.findByPrimaryStudentId(studentId);
-    
-        return matchesList.stream().map(m -> new MatchesDTO(m)).toList();
-    }
 }

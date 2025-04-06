@@ -12,7 +12,6 @@ public class MatchesDTO {
         this.matchId = mathces.getId();
         this.primaryStudentId = mathces.getPrimaryStudent().getId();
         this.secondaryStudentId = mathces.getSecondaryStudent().getId();
-        this.score = mathces.getScore();
     }
 
     public Long getMatchId() {
