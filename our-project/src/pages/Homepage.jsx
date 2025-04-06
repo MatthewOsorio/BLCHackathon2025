@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar';
 
 
 function Homepage() {
-    
+    console.log("test")
     return <div className = "homepage">
         <NavBar/>
         <img src = {homepageImage} alt = "Homepage Image"/>

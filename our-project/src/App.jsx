@@ -3,8 +3,7 @@ import './App.css'
 import Homepage from './pages/homepage';
 import Signup from './pages/signup';
 import Question from './pages/Question';
-import UserHomepage from './pages/UserHomepage';
-
+import UserHomepage from './pages/userHomepage';
 
 function App() {
 
