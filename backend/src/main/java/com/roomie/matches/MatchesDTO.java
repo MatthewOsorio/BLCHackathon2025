@@ -4,7 +4,6 @@ public class MatchesDTO {
     private Long matchId;
     private Long primaryStudentId;
     private Long secondaryStudentId;
-    private Integer score;
 
     public MatchesDTO() {}
 
@@ -24,9 +23,5 @@ public class MatchesDTO {
 
     public Long getSecondaryStudentId() {
         return secondaryStudentId;
-    }
-
-    public Integer getScore() {
-        return score;
     }
 }

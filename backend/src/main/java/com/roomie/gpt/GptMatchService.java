@@ -75,7 +75,6 @@ public class GptMatchService {
         
         try{
             String gptResponse  = messageContent.get().replaceAll("^```json", "").replaceAll("```$", "").trim();
-            System.out.println(gptResponse);
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode root = objectMapper.readTree(gptResponse);
             return root.get("matches");

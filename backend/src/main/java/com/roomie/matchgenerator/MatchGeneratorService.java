@@ -23,8 +23,6 @@ public class MatchGeneratorService {
 
     public void generateAndSaveMatches(Questionnaire studentQuestionnaire, List<Questionnaire> allQuestionnaires) {
         JsonNode matches = gptMatchService.generateMatchesForStudent(studentQuestionnaire, allQuestionnaires);
-
-    
         matchesService.saveMatches(matches, studentQuestionnaire.getStudent());
     }
 }

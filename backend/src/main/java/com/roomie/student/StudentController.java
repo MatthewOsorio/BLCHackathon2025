@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.roomie.matches.Matches;
-import com.roomie.matches.MatchesDTO;
 import com.roomie.matches.MatchesRepository;
 import com.roomie.questionnaire.Questionnaire;
 import com.roomie.questionnaire.QuestionnaireDTO;
@@ -67,5 +65,4 @@ public class StudentController {
         studentService.submitQuestionnaire(studentId, questionnaire);
         studentService.generateMatches(studentId);
     }
-
 }

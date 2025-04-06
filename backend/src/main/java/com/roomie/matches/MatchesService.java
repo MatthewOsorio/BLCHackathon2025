@@ -22,21 +22,26 @@ public class MatchesService {
         this.studentRepository = studentRepository;
     }
     
+    public List<Matches> getAllMatches(){
+        return matchesRepository.findAll();
+    }
+
     public List<Matches> getMatchesByPrimaryStudentId(Long studentId){
         return matchesRepository.findByPrimaryStudentId(studentId);
     }
 
-    public void saveMatches(JsonNode matches, Student primaryStudent){
+    public List<Matches> findMatchesInvolvingStudent(Long studentId){
+        return matchesRepository.findMatchesInvolvingStudent(studentId);
+    }
 
+    public void saveMatches(JsonNode matches, Student primaryStudent){
         for (JsonNode match : matches){
             Long studentMatchId = match.get("studentId").asLong();
             Student secondaryStudent = studentRepository.findById(studentMatchId)
             .orElseThrow(() -> new IllegalStateException("Student not found with id " + studentMatchId));
 
             Matches newMatch = getOrCreateMatch(primaryStudent, secondaryStudent);
-            
             matchesRepository.save(newMatch);
-            
         }
     }
 
