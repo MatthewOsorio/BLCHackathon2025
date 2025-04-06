@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.roomie.matchgenerator.MatchGeneratorService;
+import com.roomie.authentication.LoginRequest;
 import com.roomie.matches.Matches;
 import com.roomie.matches.MatchesService;
 import com.roomie.questionnaire.Questionnaire;
@@ -144,6 +145,36 @@ public class StudentService {
 		Student currentStudent  = student.get();
 
 		currentStudent.removeAddress(address);
+	}
 
+	public boolean checkCredentials(LoginRequest loginRequest){
+		Optional<Student> studentOptional = studentRepository.findStudentByEmail(loginRequest.getEmail());
+
+		if(!studentOptional.isPresent()){
+			return false;
+		}
+		
+		Student student = studentOptional.get();
+
+		if(!student.getPassword().equals(loginRequest.getPassword())){
+			return false;
+		}
+
+		return true;
+		
+	}	
+
+	public Student findStudentByEmail(String email){
+		Optional<Student> newStudent = studentRepository.findStudentByEmail(email);
+
+		if(!newStudent.isPresent()){
+			throw new IllegalStateException("Email incorrect");
+		}
+
+		return newStudent.get();
+	}
+
+	public void saveStudent(Student student){
+		studentRepository.save(student);
 	}
 }
