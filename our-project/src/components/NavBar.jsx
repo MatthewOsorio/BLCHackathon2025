@@ -18,7 +18,10 @@ function NavBar() {
                 </div>
                 <div className="navbar-links">
                     <Link to="/" className="nav-link">Home</Link>
-                    <button onClick={toggleAuthentication}>Login</button>
+                    <button onClick={toggleAuthentication}>
+                        <Link to="/login" className="nav-link">Login</Link>
+                    </button>
+                    
                 </div>
             </nav>
         );
