@@ -1,0 +1,58 @@
+.homepage {
+    position: relative;
+}
+
+/* .roomify-header {
+    position: absolute;
+    top: 20px;
+    left: -530px;
+    font-size: 3.5rem;
+    color: #f5e981;
+    font-weight: bold;
+    z-index: 9999;
+}
+
+img {
+    width: 170%;
+    height: auto;
+} */
+
+.roomify-header {
+    position: absolute;
+    top: 20px;
+    left: -140px;
+    font-size: 4rem;
+    color: #f5e981;
+    font-weight: bold;
+    z-index: 9999;
+}
+
+p {
+    color: rgb(32, 13, 1);
+    transform: rotate(6.3deg);
+    right: 170px;
+    
+    position: absolute;
+    bottom: 50px;
+}
+
+
+img {
+    width: 120%;
+    height: auto;
+}
+
+.signupbtn {
+    bottom: 100px;
+    margin-top: 30px;
+    margin-left: 120px;
+}
+
+.signupbtn .nav-link {
+    color: #f5e981; 
+    transition: color 0.3s ease; 
+}
+
+.signupbtn:hover .nav-link {
+    color: black;
+}
