@@ -1,6 +1,6 @@
 import React, { useState, useEffect, use } from 'react';
 import { getListing } from '../services/rentcast_api';
-
+import './ListingCard.css'
 
 function MicroView() {
   const [listings, setListings] = useState([]); // Ensure it's initialized as an empty array
@@ -20,19 +20,22 @@ function MicroView() {
 
   useEffect(()=>{console.log(listings)}, [listings])
   return (
-    <div>
+    <div className = "aptCard">
       <h2>Apartment Listings</h2>
-      {listings && (
-        <ul>
-          {listings.map((listing, index) => (
-            <li key={index}>
-              <h3>{listing.addressLine1}</h3>
-              <p>Price: {listing.price}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-
+        <div className = "listingCard">
+            {listings && (
+              
+              listings.map((listing, index) => (
+                <div className = "listingCards"key={index}>
+                  <h3>Address: {listing.addressLine1}</h3>
+                  <div className = "priceHeart">
+                    <p>Price: ${listing.price}</p>
+                    <button>♡</button>
+                  </div>
+                </div>
+              ))
+          )}
+        </div>
       {loading && <div>loading</div>}
     </div>
   );
