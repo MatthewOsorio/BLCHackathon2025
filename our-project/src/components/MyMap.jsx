@@ -1,25 +1,22 @@
-import React from 'react';
-import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+//import "../css/MapComponent.css";
 
-const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-
-const MyMap = () => {
-  const handleCameraChanged = (event) => {
-    console.log('Camera change event:', event);
-    console.log('Camera center:', event.detail ? event.detail.center : event.center);
-    console.log('Zoom level:', event.detail ? event.detail.zoom : event.zoom);
-  };
-  console.log(apiKey)
-
+function MapComponent({ lat, lng }) {
   return (
-    <APIProvider apiKey={apiKey} onLoad={() => console.log('Maps API has loaded.')}>
-      <Map
-        defaultZoom={13}
-        defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
-        onCameraChanged={handleCameraChanged}
+    <MapContainer
+      center={[lat, lng]}
+      zoom={17}
+      scrollWheelZoom={false}
+      className="map"
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-    </APIProvider>
+      <Marker position={[lat, lng]}></Marker>
+    </MapContainer>
   );
-};
+}
 
-export default MyMap;
+export default MapComponent;
